@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import Icon from './Icon';
 import EventBasics from './steps/EventBasics';
 import { CrewRoles, CrewShift } from './steps/CrewSteps';
 import { PerformanceDetails, PerformerInfo } from './steps/PerformerSteps';
@@ -110,6 +111,9 @@ export default function RequirementForm() {
   if (saved) {
     return (
       <div className="card success">
+        <div className="success-icon">
+          <Icon name="check" size={28} />
+        </div>
         <h2>Requirement posted</h2>
         <p>
           <strong>{saved.eventName}</strong> is saved under <span className={`badge ${saved.category}`}>
@@ -130,7 +134,10 @@ export default function RequirementForm() {
   }
 
   return (
-    <div className="card">
+    <div className="card form-card">
+      <div className="progress" aria-hidden="true">
+        <div style={{ width: `${((step + 1) / titles.length) * 100}%` }} />
+      </div>
       <ol className="stepper">
         {titles.map((t, i) => (
           <li key={i} className={i === step ? 'current' : i < step ? 'done' : ''}>
@@ -148,8 +155,11 @@ export default function RequirementForm() {
           else submit();
         }}
       >
+        <p className="step-count">
+          Step {step + 1} of {titles.length}
+        </p>
         <h2 tabIndex={-1} ref={headingRef}>
-          Step {step + 1}: {titles[step]}
+          {titles[step]}
         </h2>
 
         {step === 0 && <EventBasics form={form} errors={errors} update={update} />}

@@ -1,4 +1,5 @@
 import Field from '../Field';
+import Icon from '../Icon';
 import type { Errors, FormState } from '@/lib/form';
 import { todayString } from '@/lib/form';
 import { CATEGORIES, EVENT_TYPES } from '@/lib/options';
@@ -99,6 +100,9 @@ export default function EventBasics({ form, errors, update }: Props) {
                 checked={form.category === c.value}
                 onChange={() => update({ category: c.value })}
               />
+              <span className="category-icon">
+                <Icon name={c.value} size={22} />
+              </span>
               <strong>{c.label}</strong>
               <span>{c.hint}</span>
             </label>

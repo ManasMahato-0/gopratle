@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Icon from './Icon';
 import { listRequirements, type Requirement } from '@/lib/api';
 import {
   CATEGORIES,
@@ -95,17 +96,29 @@ export default function RequirementList() {
 
       <ul className="requirement-list">
         {state.items.map((r) => (
-          <li key={r._id} className="card">
-            <div className="list-head">
-              <h3>{r.eventName}</h3>
-              <span className={`badge ${r.category}`}>{labelOf(CATEGORIES, r.category)}</span>
+          <li key={r._id} className={`card requirement ${r.category}`}>
+            <span className="category-icon">
+              <Icon name={r.category} />
+            </span>
+            <div className="requirement-body">
+              <div className="list-head">
+                <h3>{r.eventName}</h3>
+                <span className={`badge ${r.category}`}>{labelOf(CATEGORIES, r.category)}</span>
+              </div>
+              <p className="meta">
+                <span>{labelOf(EVENT_TYPES, r.eventType)}</span>
+                <span>
+                  {formatDate(r.startDate)}
+                  {r.endDate && ` – ${formatDate(r.endDate)}`}
+                </span>
+                <span className="meta-place">
+                  <Icon name="pin" size={14} />
+                  {r.location}
+                  {r.venue && `, ${r.venue}`}
+                </span>
+              </p>
+              <p>{summary(r)}</p>
             </div>
-            <p className="muted">
-              {labelOf(EVENT_TYPES, r.eventType)} · {formatDate(r.startDate)}
-              {r.endDate && ` – ${formatDate(r.endDate)}`} · {r.location}
-              {r.venue && `, ${r.venue}`}
-            </p>
-            <p>{summary(r)}</p>
           </li>
         ))}
       </ul>
