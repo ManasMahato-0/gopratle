@@ -6,7 +6,10 @@ import requirementsRouter from './routes/requirements.js';
 export function createApp() {
   const app = express();
 
-  const origins = process.env.CLIENT_ORIGIN?.split(',').map((o) => o.trim());
+  // browsers send the origin without a trailing slash, so strip it from the config too
+  const origins = process.env.CLIENT_ORIGIN?.split(',')
+    .map((o) => o.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
   app.use(cors({ origin: origins?.length ? origins : '*' }));
   app.use(express.json({ limit: '100kb' }));
 
