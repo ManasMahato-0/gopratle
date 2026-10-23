@@ -4,7 +4,9 @@ A 4-step form for posting an event requirement (looking for an Event Planner, Pe
 
 - **Frontend:** Next.js (App Router, TypeScript), in `frontend/`
 - **Backend:** Node.js + Express + Mongoose, in `backend/`
-- **Live:** _add Vercel URL here_ · API: _add Render URL here_
+- **Live:** https://gopratle-ochre.vercel.app · API: https://gopratle-fjxn.onrender.com/api/health
+
+> The API is on Render's free tier, so the first request after it's been idle can take ~30–50s while it wakes up.
 
 ## The flow
 
